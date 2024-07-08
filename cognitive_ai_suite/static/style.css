@@ -1,0 +1,140 @@
+/* Reset some basic styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+/* Background styling */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Logo styling */
+.logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+}
+
+.logo-img {
+    width: 300px;
+    height: auto;
+    transition: opacity 0.5s;
+}
+
+/* Container styling */
+.container {
+    position: relative;
+    top: 10%;
+    width: 100%;
+}
+
+/* Title styling */
+.title {
+    font-size: 4.5em;
+    color: #007B55;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+}
+
+/* Box styling */
+.box {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+/* Input field styling */
+form label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+form input, form select, form textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+/* Progress spinner styling */
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #007bff;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Output box styling */
+.output-box {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 1em;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+#output-text {
+    white-space: pre-wrap;
+    text-align: left;
+    width: 100%;
+    margin-top: 50px; /* Ensure there's enough space for the copy button */
+}
+
+/* Copy button styling */
+#copy-button {
+    align-self: flex-start;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#copy-button:hover {
+    background-color: #0056b3;
+}
+

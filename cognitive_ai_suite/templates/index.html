@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Suite AI Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+        <img src="/static/windmill.jpg" alt="Background" class="background-img">
+    </div>
+    <div class="logo" id="logo">
+        <img src="/static/logo.png" alt="DOE Logo" class="logo-img">
+    </div>
+    <div class="container">
+        <h1 class="title">Cognitive Suite AI Tool</h1>
+        <div id="form-box" class="box">
+            <h2>Get Cognitive Services</h2>
+            <form id="generate-form">
+                <label for="cognitive_service">Cognitive Service:</label>
+                <select id="cognitive_service" name="cognitive_service" required>
+                    <option value="">Select a service</option>
+                    <option value="Brainstorming">Brainstorming</option>
+                    <option value="Decision Making">Decision Making</option>
+                    <option value="Problem Solving">Problem Solving</option>
+                </select>
+                <label for="challenge">Design Challenge/Problem/Decision:</label>
+                <input type="text" id="challenge" name="challenge" required>
+                <label for="details">Details:</label>
+                <textarea id="details" name="details" rows="10" required></textarea>
+                <button type="submit">Generate</button>
+            </form>
+            <div id="progress">
+                <p id="progress-text"></p>
+                <div id="spinner" class="spinner" style="display: none;"></div>
+            </div>
+            <div id="output" class="box output-box" style="display: none;">
+                <button id="copy-button">Copy Text</button>
+                <pre id="output-text"></pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('generate-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const cognitive_service = document.getElementById('cognitive_service').value;
+            const challenge = document.getElementById('challenge').value;
+            const details = document.getElementById('details').value;
+
+            document.getElementById('progress-text').innerHTML = "Generating Report. Estimated completion in 5-12 minutes.";
+            document.getElementById('spinner').style.display = "block";
+
+            const response = await fetch('/generate_response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'cognitive_service': cognitive_service,
+                    'challenge': challenge,
+                    'details': details
+                })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById('output').style.display = 'block';
+                document.getElementById('output-text').innerText = data.generated_text;
+                document.getElementById('progress-text').innerHTML = ""; // Clear progress message
+                document.getElementById('spinner').style.display = "none";
+            } else {
+                alert(`Error: ${data.error}`);
+            }
+        });
+
+        document.getElementById('copy-button').addEventListener('click', function() {
+            const text = document.getElementById('output-text').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Text copied to clipboard');
+            }).catch(err => {
+                alert('Failed to copy text: ', err);
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const logo = document.getElementById('logo');
+            const scrollY = window.scrollY;
+            const opacity = Math.max(1 - scrollY / 200, 0);
+            logo.style.opacity = opacity;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+flask
+google-cloud-aiplatform
+PyMuPDF
+python-pptx
+python-docx
+comtypes
